@@ -8,7 +8,7 @@ function formatCurrency(num = 0) {
 }
 
 export default function Cart() {
-  const { items, addItem, removeItem, updateQty, clearCart, total } = useCart()
+ const { items, addItem: _addItem, removeItem, updateQty, clearCart, total } = useCart()
   const [open, setOpen] = useState(false)
   const totalItems = items.reduce((acc, it) => acc + (it.qty || 1), 0)
 
