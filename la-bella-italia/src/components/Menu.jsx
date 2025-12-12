@@ -25,7 +25,11 @@ export default function Menu({ openModal }) {
   const [query, setQuery] = useState('')
   const { addItem } = useCart()
 
-  useEffect(() => { setTab('entradas') }, [])
+useEffect(() => {
+  // If value is necessary on mount, set it explicitly.
+  setTab('entradas')
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])
 
   function fallbackImage(e) { e.target.onerror = null; e.target.src = '/placeholder.png' }
 
