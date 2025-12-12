@@ -9,19 +9,20 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import Modal from './components/Modal'
+import Cart from './components/Cart'
+import { CartProvider } from './context/CartContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function App() {
-  // Modal state
   const [selectedDish, setSelectedDish] = useState(null)
 
   useEffect(() => {
-    // Set theme from localStorage if available
     const theme = localStorage.getItem('theme') || 'light'
     document.body.dataset.theme = theme
   }, [])
 
   useEffect(() => {
-    // reveal animation on scroll
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -31,8 +32,8 @@ export default function App() {
       })
     }, { threshold: 0.12 })
 
-    document.querySelectorAll('section').forEach((s) => {
-      s.classList.add('reveal') // default hidden state
+    document.querySelectorAll('section, .prato, .galeria img').forEach((s) => {
+      s.classList.add('reveal')
       observer.observe(s)
     })
 
@@ -48,7 +49,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <CartProvider>
       <Nav />
       <main>
         <Hero />
@@ -63,6 +64,18 @@ export default function App() {
       <WhatsAppFloat />
 
       <Modal dish={selectedDish} onClose={closeModal} />
-    </>
+      <Cart />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={3500}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnHover
+        pauseOnFocusLoss
+      />
+    </CartProvider>
   )
 }
