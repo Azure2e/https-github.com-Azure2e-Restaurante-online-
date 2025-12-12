@@ -25,7 +25,16 @@ export default function Menu({ openModal }) {
   const [query, setQuery] = useState('')
   const { addItem } = useCart()
 
-  useEffect(() => { setTab('entradas') }, [])
+  useEffect(() => {
+    try {
+      const q = new URLSearchParams(window.location.search)
+      const requested = q.get('tab')
+      if (requested && MENU[requested]) setTab(requested)
+      else setTab('entradas')
+    } catch (err) {
+      setTab('entradas')
+    }
+  }, [setTab])
 
   function fallbackImage(e) { e.target.onerror = null; e.target.src = '/placeholder.png' }
 

@@ -1,9 +1,4 @@
-/* ------------------------
-   La Bella Italia - Styles
-   Full updated index.css
-   ------------------------ */
 
-/* Theme variables */
 :root {
   --vermelho: #c1121f;
   --preto: #111;
@@ -41,7 +36,6 @@ nav {
   left: 0;
   width: 100%;
   background: var(--nav-bg);
-  backdrop-filter: blur(6px);
   padding: 12px 5%;
   display: flex;
   justify-content: space-between;
@@ -313,12 +307,13 @@ footer { background: #000; color: #aaa; text-align: center; padding: 40px; }
     transform: translateX(106%); transition: transform .35s cubic-bezier(.22,.98,.36,1);
     z-index: 1150; gap: 26px; padding: 16px;
   }
-  .nav-links.mobile-open { transform: translateX(0%); backdrop-filter: blur(6px); box-shadow: 0 30px 60px rgba(0,0,0,0.48); }
-  .nav-links a { font-size: 1.25rem; color: #fff; padding: 10px 14px; }
-  .nav-links a:hover { color: var(--vermelho); }
-  .hamburger { display: flex; }
-  /* keep desktop nav links hidden beneath overlay behind burger for mobile viewports */
-  nav { padding: 10px 3%; }
+  .nav-links.mobile-open {
+  transform: translateX(0%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.7); /* fallback for browsers not supporting backdrop-filter */
+  box-shadow: 0 30px 60px rgba(0,0,0,0.48);
+}
 }
 
 /* stacked layout for small screen grid */
