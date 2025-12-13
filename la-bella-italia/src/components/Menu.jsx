@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useCart } from '../context/CartContext'
 import { toast } from 'react-toastify'
 
@@ -21,20 +21,21 @@ const MENU = {
 }
 
 export default function Menu({ openModal }) {
-  const [tab, setTab] = useState('entradas')
-  const [query, setQuery] = useState('')
-  const { addItem } = useCart()
-
-  useEffect(() => {
+  // Safely derive initial tab value at component initialization
+  const defaultTab = (() => {
     try {
+      if (typeof window === 'undefined') return 'entradas'
       const q = new URLSearchParams(window.location.search)
       const requested = q.get('tab')
-      if (requested && MENU[requested]) setTab(requested)
-      else setTab('entradas')
-    } catch (err) {
-      setTab('entradas')
+      return requested && MENU[requested] ? requested : 'entradas'
+    } catch {
+      return 'entradas'
     }
-  }, [setTab])
+  })()
+
+  const [tab, setTab] = useState(defaultTab)
+  const [query, setQuery] = useState('')
+  const { addItem } = useCart()
 
   function fallbackImage(e) { e.target.onerror = null; e.target.src = '/placeholder.png' }
 
